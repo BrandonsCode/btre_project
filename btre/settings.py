@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from pathlib import os
 
+from psycopg2 import DatabaseError
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-esio2nrtv#tu0bacbb=(9dxd57&3a81kkhga)g0qdyv^@tqq3)'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -80,7 +82,15 @@ WSGI_APPLICATION = 'btre.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
+Databases = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'btredb',
+        'USER': 'postgres',
+        'PASSWORD':'123456',
+        'HOST': 'localhost'
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -131,8 +141,6 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAG = {
     messages.ERROR: 'danger'
 }
-
-
 
 try:
     from .local_settings import *
